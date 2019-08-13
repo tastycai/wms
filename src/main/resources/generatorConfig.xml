@@ -21,21 +21,43 @@
             <property name="suppressDate" value="true" />
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.zl.wms.model.product" targetProject="src\main\java">
+        <javaModelGenerator targetPackage="com.zl.wms.model.stock" targetProject="src\main\java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.zl.wms.dao.product"  targetProject="src\main\resources">
+        <sqlMapGenerator targetPackage="com.zl.wms.dao.stock"  targetProject="src\main\resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zl.wms.dao.product"  targetProject="src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zl.wms.dao.stock"  targetProject="src\main\java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table  tableName="wms_product" domainObjectName="Product" >
-        </table>
+        <table  tableName="wms_stock_change" domainObjectName="StockChangeModel" mapperName="StockChangeDao"> </table>
+        <table  tableName="wms_stock" domainObjectName="StockModel" mapperName="StockDao"> </table>
+        <table  tableName="wms_addstock" domainObjectName="AddstockModel" mapperName="AddstockDao"> </table>
+        <table  tableName="wms_addstock_detail" domainObjectName="AddstockDetailModel" mapperName="AddstockDetailDao"> </table>
+        <table  tableName="wms_outstock" domainObjectName="OutstockModel" mapperName="OutstockDao"> </table>
+        <table  tableName="wms_ousttock_detail" domainObjectName="OutstockDetailModel" mapperName="OutstockDetailDao"> </table>
+        <table  tableName="wms_stock_adjust" domainObjectName="StockAdjustModel" mapperName="StockAdjustDao"> </table>
+
+        <!--<table  tableName="wms_order_detail" domainObjectName="OrderDetailModel" mapperName="OrderDetailDao"> </table>
+        <table  tableName="wms_order_address" domainObjectName="OrderAddressModel" mapperName="OrderAddressDao"> </table>
+        <table  tableName="wms_order" domainObjectName="OrderModel" mapperName="OrderDao"> </table>
+        <table  tableName="wms_address" domainObjectName="AddressModel" mapperName="AddressDao"> </table>
+        <table  tableName="wms_customer" domainObjectName="CustomerModel" mapperName="CustomerDao"> </table>-->
+
+        <!--<table  tableName="wms_product" domainObjectName="ProductModel" mapperName="ProductDao"> </table>
+        <table  tableName="wms_price" domainObjectName="PriceModel" mapperName="PriceDao"> </table>-->
+
+        <!--<table  tableName="wms_resource" domainObjectName="ResourceModel"  mapperName="ResourceDao"> </table>
+        <table  tableName="wms_func" domainObjectName="FuncModel"  mapperName="FuncDao"> </table>
+        <table  tableName="wms_role" domainObjectName="RoleModel" mapperName="RoleDao"> </table>
+        <table  tableName="wms_user" domainObjectName="UserModel" mapperName="UserDao"> </table>
+        <table  tableName="wms_func_resource" domainObjectName="FuncResourceModel" mapperName="FuncResourceDao"> </table>
+        <table  tableName="wms_role_func" domainObjectName="RoleFuncModel" mapperName="RoleFuncDao"> </table>
+        <table  tableName="wms_user_role" domainObjectName="UserRole" mapperName="UserRoleDao"> </table>-->
 
     </context>
 </generatorConfiguration>

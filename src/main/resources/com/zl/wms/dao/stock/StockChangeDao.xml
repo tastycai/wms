@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.wms.dao.stock.StockChangeDao">
+  <resultMap id="BaseResultMap" type="com.zl.wms.model.stock.StockChangeModel">
+    <id column="stock_change_id" jdbcType="INTEGER" property="stockChangeId" />
+    <result column="stock_id" jdbcType="INTEGER" property="stockId" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_code" jdbcType="INTEGER" property="productCode" />
+    <result column="before_stock" jdbcType="INTEGER" property="beforeStock" />
+    <result column="change_stock" jdbcType="INTEGER" property="changeStock" />
+    <result column="after_stock" jdbcType="INTEGER" property="afterStock" />
+    <result column="change_time" jdbcType="TIMESTAMP" property="changeTime" />
+    <result column="change_type" jdbcType="VARCHAR" property="changeType" />
+    <result column="relation_id" jdbcType="INTEGER" property="relationId" />
+    <result column="relation_type" jdbcType="VARCHAR" property="relationType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stock_change_id, stock_id, product_id, product_code, before_stock, change_stock, 
+    after_stock, change_time, change_type, relation_id, relation_type
+  </sql>
+  <select id="selectByExample" parameterType="com.zl.wms.model.stock.StockChangeModelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_stock_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wms_stock_change
+    where stock_change_id = #{stockChangeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wms_stock_change
+    where stock_change_id = #{stockChangeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.wms.model.stock.StockChangeModelExample">
+    delete from wms_stock_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.wms.model.stock.StockChangeModel">
+    insert into wms_stock_change (stock_change_id, stock_id, product_id, 
+      product_code, before_stock, change_stock, 
+      after_stock, change_time, change_type, 
+      relation_id, relation_type)
+    values (#{stockChangeId,jdbcType=INTEGER}, #{stockId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{productCode,jdbcType=INTEGER}, #{beforeStock,jdbcType=INTEGER}, #{changeStock,jdbcType=INTEGER}, 
+      #{afterStock,jdbcType=INTEGER}, #{changeTime,jdbcType=TIMESTAMP}, #{changeType,jdbcType=VARCHAR}, 
+      #{relationId,jdbcType=INTEGER}, #{relationType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.wms.model.stock.StockChangeModel">
+    insert into wms_stock_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stockChangeId != null">
+        stock_change_id,
+      </if>
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="beforeStock != null">
+        before_stock,
+      </if>
+      <if test="changeStock != null">
+        change_stock,
+      </if>
+      <if test="afterStock != null">
+        after_stock,
+      </if>
+      <if test="changeTime != null">
+        change_time,
+      </if>
+      <if test="changeType != null">
+        change_type,
+      </if>
+      <if test="relationId != null">
+        relation_id,
+      </if>
+      <if test="relationType != null">
+        relation_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stockChangeId != null">
+        #{stockChangeId,jdbcType=INTEGER},
+      </if>
+      <if test="stockId != null">
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=INTEGER},
+      </if>
+      <if test="beforeStock != null">
+        #{beforeStock,jdbcType=INTEGER},
+      </if>
+      <if test="changeStock != null">
+        #{changeStock,jdbcType=INTEGER},
+      </if>
+      <if test="afterStock != null">
+        #{afterStock,jdbcType=INTEGER},
+      </if>
+      <if test="changeTime != null">
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeType != null">
+        #{changeType,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null">
+        #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="relationType != null">
+        #{relationType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.wms.model.stock.StockChangeModelExample" resultType="java.lang.Long">
+    select count(*) from wms_stock_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_stock_change
+    <set>
+      <if test="record.stockChangeId != null">
+        stock_change_id = #{record.stockChangeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockId != null">
+        stock_id = #{record.stockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null">
+        product_code = #{record.productCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.beforeStock != null">
+        before_stock = #{record.beforeStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeStock != null">
+        change_stock = #{record.changeStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.afterStock != null">
+        after_stock = #{record.afterStock,jdbcType=INTEGER},
+      </if>
+      <if test="record.changeTime != null">
+        change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeType != null">
+        change_type = #{record.changeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationId != null">
+        relation_id = #{record.relationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.relationType != null">
+        relation_type = #{record.relationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_stock_change
+    set stock_change_id = #{record.stockChangeId,jdbcType=INTEGER},
+      stock_id = #{record.stockId,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=INTEGER},
+      before_stock = #{record.beforeStock,jdbcType=INTEGER},
+      change_stock = #{record.changeStock,jdbcType=INTEGER},
+      after_stock = #{record.afterStock,jdbcType=INTEGER},
+      change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      change_type = #{record.changeType,jdbcType=VARCHAR},
+      relation_id = #{record.relationId,jdbcType=INTEGER},
+      relation_type = #{record.relationType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.wms.model.stock.StockChangeModel">
+    update wms_stock_change
+    <set>
+      <if test="stockId != null">
+        stock_id = #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=INTEGER},
+      </if>
+      <if test="beforeStock != null">
+        before_stock = #{beforeStock,jdbcType=INTEGER},
+      </if>
+      <if test="changeStock != null">
+        change_stock = #{changeStock,jdbcType=INTEGER},
+      </if>
+      <if test="afterStock != null">
+        after_stock = #{afterStock,jdbcType=INTEGER},
+      </if>
+      <if test="changeTime != null">
+        change_time = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeType != null">
+        change_type = #{changeType,jdbcType=VARCHAR},
+      </if>
+      <if test="relationId != null">
+        relation_id = #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="relationType != null">
+        relation_type = #{relationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stock_change_id = #{stockChangeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.wms.model.stock.StockChangeModel">
+    update wms_stock_change
+    set stock_id = #{stockId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=INTEGER},
+      before_stock = #{beforeStock,jdbcType=INTEGER},
+      change_stock = #{changeStock,jdbcType=INTEGER},
+      after_stock = #{afterStock,jdbcType=INTEGER},
+      change_time = #{changeTime,jdbcType=TIMESTAMP},
+      change_type = #{changeType,jdbcType=VARCHAR},
+      relation_id = #{relationId,jdbcType=INTEGER},
+      relation_type = #{relationType,jdbcType=VARCHAR}
+    where stock_change_id = #{stockChangeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.wms.dao.stock.AddstockDao">
+  <resultMap id="BaseResultMap" type="com.zl.wms.model.stock.AddstockModel">
+    <id column="addstock_id" jdbcType="INTEGER" property="addstockId" />
+    <result column="addstock_code" jdbcType="VARCHAR" property="addstockCode" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="addstock_time" jdbcType="TIMESTAMP" property="addstockTime" />
+    <result column="relation_id" jdbcType="INTEGER" property="relationId" />
+    <result column="relation_type" jdbcType="VARCHAR" property="relationType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    addstock_id, addstock_code, money, addstock_time, relation_id, relation_type
+  </sql>
+  <select id="selectByExample" parameterType="com.zl.wms.model.stock.AddstockModelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_addstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wms_addstock
+    where addstock_id = #{addstockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wms_addstock
+    where addstock_id = #{addstockId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.wms.model.stock.AddstockModelExample">
+    delete from wms_addstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.wms.model.stock.AddstockModel">
+    insert into wms_addstock (addstock_id, addstock_code, money, 
+      addstock_time, relation_id, relation_type
+      )
+    values (#{addstockId,jdbcType=INTEGER}, #{addstockCode,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+      #{addstockTime,jdbcType=TIMESTAMP}, #{relationId,jdbcType=INTEGER}, #{relationType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.wms.model.stock.AddstockModel">
+    insert into wms_addstock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="addstockId != null">
+        addstock_id,
+      </if>
+      <if test="addstockCode != null">
+        addstock_code,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="addstockTime != null">
+        addstock_time,
+      </if>
+      <if test="relationId != null">
+        relation_id,
+      </if>
+      <if test="relationType != null">
+        relation_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="addstockId != null">
+        #{addstockId,jdbcType=INTEGER},
+      </if>
+      <if test="addstockCode != null">
+        #{addstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="addstockTime != null">
+        #{addstockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationId != null">
+        #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="relationType != null">
+        #{relationType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.wms.model.stock.AddstockModelExample" resultType="java.lang.Long">
+    select count(*) from wms_addstock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_addstock
+    <set>
+      <if test="record.addstockId != null">
+        addstock_id = #{record.addstockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addstockCode != null">
+        addstock_code = #{record.addstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.addstockTime != null">
+        addstock_time = #{record.addstockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.relationId != null">
+        relation_id = #{record.relationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.relationType != null">
+        relation_type = #{record.relationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_addstock
+    set addstock_id = #{record.addstockId,jdbcType=INTEGER},
+      addstock_code = #{record.addstockCode,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
+      addstock_time = #{record.addstockTime,jdbcType=TIMESTAMP},
+      relation_id = #{record.relationId,jdbcType=INTEGER},
+      relation_type = #{record.relationType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.wms.model.stock.AddstockModel">
+    update wms_addstock
+    <set>
+      <if test="addstockCode != null">
+        addstock_code = #{addstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="addstockTime != null">
+        addstock_time = #{addstockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="relationId != null">
+        relation_id = #{relationId,jdbcType=INTEGER},
+      </if>
+      <if test="relationType != null">
+        relation_type = #{relationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where addstock_id = #{addstockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.wms.model.stock.AddstockModel">
+    update wms_addstock
+    set addstock_code = #{addstockCode,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      addstock_time = #{addstockTime,jdbcType=TIMESTAMP},
+      relation_id = #{relationId,jdbcType=INTEGER},
+      relation_type = #{relationType,jdbcType=VARCHAR}
+    where addstock_id = #{addstockId,jdbcType=INTEGER}
+  </update>
+</mapper>

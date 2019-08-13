@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zl.wms.dao.product.ProductMapper">
-  <resultMap id="BaseResultMap" type="com.zl.wms.model.product.Product">
-    <id column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
-    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+<mapper namespace="com.zl.wms.dao.auth.ResourceDao">
+  <resultMap id="BaseResultMap" type="com.zl.wms.model.auth.ResourceModel">
+    <id column="resource_id" jdbcType="INTEGER" property="resourceId" />
+    <result column="resource_url" jdbcType="VARCHAR" property="resourceUrl" />
+    <result column="resource_key" jdbcType="VARCHAR" property="resourceKey" />
+    <result column="resource_desc" jdbcType="VARCHAR" property="resourceDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_code, product_name
+    resource_id, resource_url, resource_key, resource_desc
   </sql>
-  <select id="selectByExample" parameterType="com.zl.wms.model.product.ProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zl.wms.model.auth.ResourceModelExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from wms_product
+    from wms_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,67 +85,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from wms_product
-    where product_id = #{productId,jdbcType=INTEGER}
+    from wms_resource
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from wms_product
-    where product_id = #{productId,jdbcType=INTEGER}
+    delete from wms_resource
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zl.wms.model.product.ProductExample">
-    delete from wms_product
+  <delete id="deleteByExample" parameterType="com.zl.wms.model.auth.ResourceModelExample">
+    delete from wms_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zl.wms.model.product.Product">
-    insert into wms_product (product_id, product_code, product_name
-      )
-    values (#{productId,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.zl.wms.model.auth.ResourceModel">
+    insert into wms_resource (resource_id, resource_url, resource_key, 
+      resource_desc)
+    values (#{resourceId,jdbcType=INTEGER}, #{resourceUrl,jdbcType=VARCHAR}, #{resourceKey,jdbcType=VARCHAR}, 
+      #{resourceDesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zl.wms.model.product.Product">
-    insert into wms_product
+  <insert id="insertSelective" parameterType="com.zl.wms.model.auth.ResourceModel">
+    insert into wms_resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        product_id,
+      <if test="resourceId != null">
+        resource_id,
       </if>
-      <if test="productCode != null">
-        product_code,
+      <if test="resourceUrl != null">
+        resource_url,
       </if>
-      <if test="productName != null">
-        product_name,
+      <if test="resourceKey != null">
+        resource_key,
+      </if>
+      <if test="resourceDesc != null">
+        resource_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=INTEGER},
       </if>
-      <if test="productCode != null">
-        #{productCode,jdbcType=VARCHAR},
+      <if test="resourceUrl != null">
+        #{resourceUrl,jdbcType=VARCHAR},
       </if>
-      <if test="productName != null">
-        #{productName,jdbcType=VARCHAR},
+      <if test="resourceKey != null">
+        #{resourceKey,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDesc != null">
+        #{resourceDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zl.wms.model.product.ProductExample" resultType="java.lang.Long">
-    select count(*) from wms_product
+  <select id="countByExample" parameterType="com.zl.wms.model.auth.ResourceModelExample" resultType="java.lang.Long">
+    select count(*) from wms_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update wms_product
+    update wms_resource
     <set>
-      <if test="record.productId != null">
-        product_id = #{record.productId,jdbcType=INTEGER},
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=INTEGER},
       </if>
-      <if test="record.productCode != null">
-        product_code = #{record.productCode,jdbcType=VARCHAR},
+      <if test="record.resourceUrl != null">
+        resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.productName != null">
-        product_name = #{record.productName,jdbcType=VARCHAR},
+      <if test="record.resourceKey != null">
+        resource_key = #{record.resourceKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceDesc != null">
+        resource_desc = #{record.resourceDesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,30 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update wms_product
-    set product_id = #{record.productId,jdbcType=INTEGER},
-      product_code = #{record.productCode,jdbcType=VARCHAR},
-      product_name = #{record.productName,jdbcType=VARCHAR}
+    update wms_resource
+    set resource_id = #{record.resourceId,jdbcType=INTEGER},
+      resource_url = #{record.resourceUrl,jdbcType=VARCHAR},
+      resource_key = #{record.resourceKey,jdbcType=VARCHAR},
+      resource_desc = #{record.resourceDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zl.wms.model.product.Product">
-    update wms_product
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.wms.model.auth.ResourceModel">
+    update wms_resource
     <set>
-      <if test="productCode != null">
-        product_code = #{productCode,jdbcType=VARCHAR},
+      <if test="resourceUrl != null">
+        resource_url = #{resourceUrl,jdbcType=VARCHAR},
       </if>
-      <if test="productName != null">
-        product_name = #{productName,jdbcType=VARCHAR},
+      <if test="resourceKey != null">
+        resource_key = #{resourceKey,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDesc != null">
+        resource_desc = #{resourceDesc,jdbcType=VARCHAR},
       </if>
     </set>
-    where product_id = #{productId,jdbcType=INTEGER}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zl.wms.model.product.Product">
-    update wms_product
-    set product_code = #{productCode,jdbcType=VARCHAR},
-      product_name = #{productName,jdbcType=VARCHAR}
-    where product_id = #{productId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.zl.wms.model.auth.ResourceModel">
+    update wms_resource
+    set resource_url = #{resourceUrl,jdbcType=VARCHAR},
+      resource_key = #{resourceKey,jdbcType=VARCHAR},
+      resource_desc = #{resourceDesc,jdbcType=VARCHAR}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
   </update>
 </mapper>

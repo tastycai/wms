@@ -1,6 +1,6 @@
 package com.zl.wms.model.product;
 
-public class Product {
+public class ProductModel {
     private Integer productId;
 
     private String productCode;

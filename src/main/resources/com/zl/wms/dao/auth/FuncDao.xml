@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.wms.dao.auth.FuncDao">
+  <resultMap id="BaseResultMap" type="com.zl.wms.model.auth.FuncModel">
+    <id column="func_id" jdbcType="INTEGER" property="funcId" />
+    <result column="func_name" jdbcType="VARCHAR" property="funcName" />
+    <result column="func_desc" jdbcType="VARCHAR" property="funcDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    func_id, func_name, func_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.zl.wms.model.auth.FuncModelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wms_func
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wms_func
+    where func_id = #{funcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wms_func
+    where func_id = #{funcId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zl.wms.model.auth.FuncModelExample">
+    delete from wms_func
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zl.wms.model.auth.FuncModel">
+    insert into wms_func (func_id, func_name, func_desc
+      )
+    values (#{funcId,jdbcType=INTEGER}, #{funcName,jdbcType=VARCHAR}, #{funcDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.wms.model.auth.FuncModel">
+    insert into wms_func
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="funcId != null">
+        func_id,
+      </if>
+      <if test="funcName != null">
+        func_name,
+      </if>
+      <if test="funcDesc != null">
+        func_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="funcId != null">
+        #{funcId,jdbcType=INTEGER},
+      </if>
+      <if test="funcName != null">
+        #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcDesc != null">
+        #{funcDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zl.wms.model.auth.FuncModelExample" resultType="java.lang.Long">
+    select count(*) from wms_func
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wms_func
+    <set>
+      <if test="record.funcId != null">
+        func_id = #{record.funcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.funcName != null">
+        func_name = #{record.funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcDesc != null">
+        func_desc = #{record.funcDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wms_func
+    set func_id = #{record.funcId,jdbcType=INTEGER},
+      func_name = #{record.funcName,jdbcType=VARCHAR},
+      func_desc = #{record.funcDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.wms.model.auth.FuncModel">
+    update wms_func
+    <set>
+      <if test="funcName != null">
+        func_name = #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcDesc != null">
+        func_desc = #{funcDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where func_id = #{funcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.wms.model.auth.FuncModel">
+    update wms_func
+    set func_name = #{funcName,jdbcType=VARCHAR},
+      func_desc = #{funcDesc,jdbcType=VARCHAR}
+    where func_id = #{funcId,jdbcType=INTEGER}
+  </update>
+</mapper>
