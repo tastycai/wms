@@ -6,6 +6,7 @@
     <result column="user_code" jdbcType="VARCHAR" property="userCode" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="is_valid" jdbcType="BIT" property="isValid" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_code, user_name, phone_no, is_valid
+    user_id, user_code, user_name, phone_no, password, is_valid
   </sql>
   <select id="selectByExample" parameterType="com.zl.wms.model.auth.UserModelExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.zl.wms.model.auth.UserModel">
     insert into wms_user (user_id, user_code, user_name, 
-      phone_no, is_valid)
+      phone_no, password, is_valid
+      )
     values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{phoneNo,jdbcType=VARCHAR}, #{isValid,jdbcType=BIT})
+      #{phoneNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{isValid,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zl.wms.model.auth.UserModel">
     insert into wms_user
@@ -119,6 +122,9 @@
       </if>
       <if test="phoneNo != null">
         phone_no,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="isValid != null">
         is_valid,
@@ -136,6 +142,9 @@
       </if>
       <if test="phoneNo != null">
         #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="isValid != null">
         #{isValid,jdbcType=BIT},
@@ -163,6 +172,9 @@
       <if test="record.phoneNo != null">
         phone_no = #{record.phoneNo,jdbcType=VARCHAR},
       </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.isValid != null">
         is_valid = #{record.isValid,jdbcType=BIT},
       </if>
@@ -177,6 +189,7 @@
       user_code = #{record.userCode,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       phone_no = #{record.phoneNo,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       is_valid = #{record.isValid,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,6 +207,9 @@
       <if test="phoneNo != null">
         phone_no = #{phoneNo,jdbcType=VARCHAR},
       </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
       <if test="isValid != null">
         is_valid = #{isValid,jdbcType=BIT},
       </if>
@@ -205,7 +221,30 @@
     set user_code = #{userCode,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       phone_no = #{phoneNo,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       is_valid = #{isValid,jdbcType=BIT}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+
+
+  <resultMap id="selectSessionUserVOResultMap" type="com.zl.wms.vo.auth.SessionUserVO" extends="BaseResultMap">
+      <collection property="urlList" ofType="java.lang.String">
+          <result column="resource_url"></result>
+      </collection>
+  </resultMap>
+  <select id="selectSessionUserVO" parameterType="java.lang.String" resultMap="">
+      -- 根据用户名查询权限信息
+      select U.user_id,
+             U.user_code,
+             U.user_name,
+              U.password,
+             RE.resource_url
+      from wms_user as U
+               inner join wms_user_role as UR on U.user_id = UR.user_id
+               inner join wms_role as R on R.role_id = UR.role_id
+               inner join wms_role_func as RF on RF.role_id = R.role_id
+               inner join wms_func as F on RF.func_id = F.func_id
+               inner join wms_func_resource as FR on FR.func_id = F.func_id
+               inner join wms_resource as RE on RE.resource_id = FR.resource_id 
+  </select>
 </mapper>

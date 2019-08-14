@@ -3,6 +3,8 @@ package com.zl.wms.dao.auth;
 import com.zl.wms.model.auth.UserModel;
 import com.zl.wms.model.auth.UserModelExample;
 import java.util.List;
+
+import com.zl.wms.vo.auth.SessionUserVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserDao {
@@ -27,4 +29,6 @@ public interface UserDao {
     int updateByPrimaryKeySelective(UserModel record);
 
     int updateByPrimaryKey(UserModel record);
+
+    public SessionUserVO selectSessionUserVO(String userName);
 }

@@ -9,6 +9,8 @@ public class UserModel {
 
     private String phoneNo;
 
+    private String password;
+
     private Boolean isValid;
 
     public Integer getUserId() {
@@ -41,6 +43,14 @@ public class UserModel {
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo == null ? null : phoneNo.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public Boolean getIsValid() {
