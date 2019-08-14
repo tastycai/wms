@@ -232,7 +232,7 @@
           <result column="resource_url"></result>
       </collection>
   </resultMap>
-  <select id="selectSessionUserVO" parameterType="java.lang.String" resultMap="">
+  <select id="selectSessionUserVO" parameterType="java.lang.String" resultMap="selectSessionUserVOResultMap">
       -- 根据用户名查询权限信息
       select U.user_id,
              U.user_code,

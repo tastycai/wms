@@ -31,7 +31,7 @@ public class AuthAspect {
 
         SessionUserVO userVO = (SessionUserVO)session.getAttribute(AuthConstant.SESSION_USER);
 
-        if (userVO == null){
+        /*if (userVO == null){
 
             return "未登录！";
         }
@@ -40,7 +40,7 @@ public class AuthAspect {
         if (!userVO.getUrlList().contains(url)){
 
             return "无权限！";
-        }
+        }*/
 
         try {
 
@@ -48,6 +48,7 @@ public class AuthAspect {
 
         }catch (Throwable e){
 
+            e.printStackTrace();
         }
 
         return null;

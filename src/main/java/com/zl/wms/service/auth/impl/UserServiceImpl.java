@@ -4,6 +4,7 @@ import com.zl.wms.constant.CommonConstant;
 import com.zl.wms.dao.auth.UserDao;
 import com.zl.wms.model.auth.UserModel;
 import com.zl.wms.service.auth.UserService;
+import com.zl.wms.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         insertModel.setUserName(userModel.getUserName());
         insertModel.setUserCode(userModel.getUserCode());
         insertModel.setIsValid(true);
-        insertModel.setPassword(userModel.getPassword());
+        insertModel.setPassword(MD5Util.md5Encode(userModel.getPassword()));
         insertModel.setPhoneNo(userModel.getPhoneNo());
 
         userDao.insertSelective(insertModel);
