@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
             return "用户不存在！";
         }
 
-        if (sessionUserVO.getIsValid()){
+        if (!sessionUserVO.getIsValid()){
 
             return "用户已被禁用！";
         }

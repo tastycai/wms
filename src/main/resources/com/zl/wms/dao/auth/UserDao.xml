@@ -238,6 +238,7 @@
              U.user_code,
              U.user_name,
               U.password,
+              U.is_valid,
              RE.resource_url
       from wms_user as U
                inner join wms_user_role as UR on U.user_id = UR.user_id

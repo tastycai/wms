@@ -4,6 +4,7 @@ import com.zl.wms.service.auth.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class UserRoleController {
 
     // 用户关联角色
     @PostMapping("/link")
-    public String linkUserRole(Integer userId, List<Integer> roleIdList){
+    public String linkUserRole(@RequestParam Integer userId,@RequestParam List<Integer> roleIdList){
 
         return userRoleService.linkUserRole(userId,roleIdList);
     }

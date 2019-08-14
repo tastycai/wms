@@ -27,20 +27,24 @@ public class AuthAspect {
 
         HttpSession session = request.getSession();
 
-        String url = request.getRequestURL().toString();
+        String url = request.getServletPath();
 
-        SessionUserVO userVO = (SessionUserVO)session.getAttribute(AuthConstant.SESSION_USER);
+        // 不是登录页面才需要判断
+        if (!url.equals("/login")){
 
-        /*if (userVO == null){
+            SessionUserVO userVO = (SessionUserVO)session.getAttribute(AuthConstant.SESSION_USER);
 
-            return "未登录！";
+            if (userVO == null){
+
+                return "未登录！";
+            }
+
+            // 查询客户拥有的资源权限
+            if (!userVO.getUrlList().contains(url)){
+
+                return "无权限！";
+            }
         }
-
-        // 查询客户拥有的资源权限
-        if (!userVO.getUrlList().contains(url)){
-
-            return "无权限！";
-        }*/
 
         try {
 

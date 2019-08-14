@@ -4,6 +4,7 @@ import com.zl.wms.service.auth.RoleFuncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class RoleFuncController {
 
     // 关联角色和功能
     @PostMapping("/link")
-    public String linkRoleFunc(Integer roleId, List<Integer> funcIdList){
+    public String linkRoleFunc(@RequestParam Integer roleId,@RequestParam List<Integer> funcIdList){
 
         return roleFuncService.linkRoleFunc(roleId,funcIdList);
     }
