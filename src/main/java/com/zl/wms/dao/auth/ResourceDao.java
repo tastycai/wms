@@ -27,4 +27,6 @@ public interface ResourceDao {
     int updateByPrimaryKeySelective(ResourceModel record);
 
     int updateByPrimaryKey(ResourceModel record);
+
+
 }
